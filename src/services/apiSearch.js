@@ -1,8 +1,6 @@
-// api.js
-
-const getApiUrl = {
+const apiSearch = {
   method: 'GET',
-  url: 'https://api.themoviedb.org/3',
+  url: 'https://api.themoviedb.org/3/search/movie?include_adult=false&language=en-US&page=1',
   headers: {
     accept: 'application/json',
     Authorization:
@@ -10,4 +8,4 @@ const getApiUrl = {
   },
 };
 
-export default getApiUrl;
+export default apiSearch;
