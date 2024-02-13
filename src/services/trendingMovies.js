@@ -1,22 +1,27 @@
-const trendingMovies = time_window => {
-  const options = {
-    method: 'GET',
-    headers: {
-      accept: 'application/json',
-      Authorization:
-        'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3MmZiNGNlMzE4ZWEyMzFmODJjN2Y3MTc5NmFhM2M2ZSIsInN1YiI6IjY1NzBkZjkyZGQ3MzFiMDBhYjk2Nzc0NSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.F4GA0UkBmMTH3hTtFSbrMrSBqudmtfgqt4w1tmAKyIU',
-    },
-  };
+import axios from 'axios';
 
-  return fetch(
-    `https://api.themoviedb.org/3/movie/${time_window}/reviews?language=en-US&page=1`,
-    options
-  )
-    .then(response => response.json())
-    .catch(err => {
-      console.error(`Error fetching movie details for ID: ${time_window}`, err);
-      throw err;
-    });
+const trendingMovies = {
+  method: 'GET',
+  url: 'https://api.themoviedb.org/3/trending/movie/week',
+  params: { language: 'en-US' },
+  headers: {
+    accept: 'application/json',
+    Authorization:
+      'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4YzFjMWQ0MjljYzEzYmFhOTQ5OTI1N2VlMzJiNDU0YSIsInN1YiI6IjY1YzM0NzFlOTVhY2YwMDE4MzFjYzFhMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.JLn5JCCJxeGxonVwpy_8IiREG1kTSzIQforDO2lzJwI',
+  },
 };
 
-export default trendingMovies;
+axios
+  .request(trendingMovies)
+  .then(function (response) {
+    console.log(response.data.results);
+  })
+  .catch(function (error) {
+    console.error(error);
+  });
+
+const movieService = {
+  trendingMovies,
+};
+
+export default movieService;

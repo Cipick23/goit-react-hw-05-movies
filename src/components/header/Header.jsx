@@ -1,6 +1,6 @@
 // Header.js
 import React from 'react';
-import styles from './Header.modules.css';
+import styles from './Header.module.css';
 import { NavLink } from 'react-router-dom';
 
 const Header = () => {
@@ -8,28 +8,26 @@ const Header = () => {
     {
       id: '1',
       name: 'Home',
-      //   icon: <HiBookCap />,
       path: '/',
     },
     {
       id: '2',
       name: 'Movies',
-      //   icon: <HiAcademicCap />,
-      path: '/Movies',
+      path: '/movies',
     },
   ];
 
   return (
-    <div className={styles.sidebar}>
+    <div className={styles.header}>
       <div className={styles.sidebarBrandBox}></div>
-      <ul>
+      <ul className={styles.sidebarUl}>
         {menuItems.map(item => (
-          <li key={item.id} className={styles.list}>
+          <li key={item.id} className={styles.listLi}>
             <NavLink
               key={item.id}
               to={item.path}
               className={({ isActive }) =>
-                [styles.navLink, isActive ? styles.navLinkActive : ''].join('')
+                [styles.navLink, isActive ? styles.navLinkActive : ''].join(' ')
               }
             >
               {item.icon} {item.name}

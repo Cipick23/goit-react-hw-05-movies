@@ -1,10 +1,10 @@
-import MovieList from './MovieList';
+import Footer from 'components/footer/Footer';
+// import styles from './Home.module.css';
 
 function Home() {
   return (
     <>
-      <h2>Trending Movies</h2>
-      <MovieList />
+      <Footer />
     </>
   );
 }

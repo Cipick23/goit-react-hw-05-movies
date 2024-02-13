@@ -1,4 +1,4 @@
-const movieCredits = movieId => {
+const movieCredits = id => {
   const options = {
     method: 'GET',
     headers: {
@@ -9,12 +9,12 @@ const movieCredits = movieId => {
   };
 
   return fetch(
-    `https://api.themoviedb.org/3/movie/${movieId}/credits?language=en-US`,
+    `https://api.themoviedb.org/3/movie/${id}/credits?language=en-US`,
     options
   )
     .then(response => response.json())
     .catch(err => {
-      console.error(`Error fetching movie details for ID: ${movieId}`, err);
+      console.error(`Error fetching movie details for ID: ${id}`, err);
       throw err;
     });
 };

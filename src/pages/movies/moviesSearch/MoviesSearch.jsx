@@ -1,6 +1,6 @@
-import React from 'react';
-import { useState } from 'react';
-import styles from './MoviesSearch.modules.css';
+// MoviesSearch.jsx
+import React, { useState } from 'react';
+import styles from './MoviesSearch.module.css';
 
 const MoviesSearch = ({ handleInputChange }) => {
   const [input, setInput] = useState('');
@@ -19,7 +19,6 @@ const MoviesSearch = ({ handleInputChange }) => {
     <section className={styles.Header}>
       <form className={styles.SearchForm} onSubmit={onSubmitImg}>
         <button type="submit" className={styles.SearchFormButton}></button>
-
         <input
           name="input"
           type="text"
@@ -27,7 +26,7 @@ const MoviesSearch = ({ handleInputChange }) => {
           onChange={onChangeImg}
           value={input}
           autoFocus
-          placeholder="Search images and photos"
+          placeholder="Search movies"
           className={styles.SearchFormInput}
         />
       </form>

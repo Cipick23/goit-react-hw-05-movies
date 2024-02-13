@@ -17,18 +17,18 @@
 }
 
 .sidebarBrandBox {
-  background: #161d2a;
+  background: #55ec8f;
   height: 80px;
 }
 
-.sidebar ul {
+.sidebarUl {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 16px;
   list-style-type: none;
 }
 
-.sidebar li {
+.sidebarLi {
   color: #ff6b0a;
   font-size: 14px;
   line-height: 24px;
