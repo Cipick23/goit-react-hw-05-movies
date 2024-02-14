@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './MovieList.module.css';
+import PropTypes from 'prop-types';
 
 const MovieList = ({ results }) => (
   <ul>
@@ -20,5 +21,9 @@ const MovieList = ({ results }) => (
     ))}
   </ul>
 );
+
+MovieList.propTypes = {
+  results: PropTypes.array.isRequired,
+};
 
 export default MovieList;

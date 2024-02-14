@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Error from 'components/common/Error/Error';
 
 const trendingMovies = {
   method: 'GET',
@@ -13,11 +14,9 @@ const trendingMovies = {
 
 axios
   .request(trendingMovies)
-  .then(function (response) {
-    console.log(response.data.results);
-  })
+  .then(function (response) {})
   .catch(function (error) {
-    console.error(error);
+    <Error message={error} />;
   });
 
 const movieService = {

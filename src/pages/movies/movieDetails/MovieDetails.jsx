@@ -6,6 +6,7 @@ import {
   Route,
   Routes,
   useLocation,
+  // useNavigate,
 } from 'react-router-dom';
 import styles from './MovieDetails.module.css';
 import Loader from 'components/common/loader/Loader';
@@ -14,6 +15,8 @@ import fetchMovieDetails from 'services/apiDetails';
 import MovieCast from './cast/MovieCast';
 import MovieReviews from './reviews/MovieReviews';
 import MoviesSearch from '../moviesSearch/MoviesSearch';
+import PropTypes from 'prop-types';
+import { BackLink } from 'components/common/backLink/BackLink';
 
 const MovieDetails = () => {
   const [movieDetails, setMovieDetails] = useState({
@@ -28,11 +31,10 @@ const MovieDetails = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const { id } = useParams();
+  // const navigate = useNavigate();
   const location = useLocation();
 
-  // Definiți funcția handleInputChange aici
   const handleInputChange = inputValue => {
-    // Logica de gestionare a schimbării inputului în cadrul MovieDetails
     console.log('Input value in MovieDetails:', inputValue);
   };
 
@@ -43,8 +45,8 @@ const MovieDetails = () => {
         const response = await fetchMovieDetails(id);
         setMovieDetails(response);
       } catch (error) {
-        console.error('Error fetching movie details:', error);
-        setError('A apărut o eroare la preluarea detaliilor filmului');
+        <Error message={error} />;
+        setError('An error occurred while retrieving movie details.');
       } finally {
         setIsLoading(false);
       }
@@ -61,7 +63,6 @@ const MovieDetails = () => {
     return <Error message={error} />;
   }
 
-  // Convertim array-ul de obiecte genres într-un șir de caractere
   const genresString = movieDetails.genres.map(genre => genre.name).join(', ');
 
   const isMoviesRoute =
@@ -70,6 +71,8 @@ const MovieDetails = () => {
 
   return (
     <>
+      <BackLink to="/movies">Back</BackLink>
+
       {isMoviesRoute && <MoviesSearch handleInputChange={handleInputChange} />}
 
       <div className={styles.flex}>
@@ -95,9 +98,8 @@ const MovieDetails = () => {
         <NavLink to={`/movies/${id}/reviews`}>Reviews</NavLink>
       </div>
 
-      {/* Adaugă aici logica și afișarea pentru "Overview" */}
-      <div className={styles}>
-        <h2 className={styles.additionalInformation}>Additional information</h2>
+      <div className={styles.additionalInformation}>
+        <h2 className={styles}>Additional information</h2>
         <Routes>
           <Route
             path="cast"
@@ -111,6 +113,10 @@ const MovieDetails = () => {
       </div>
     </>
   );
+};
+
+MovieDetails.propTypes = {
+  movieDetails: PropTypes.object,
 };
 
 export default MovieDetails;

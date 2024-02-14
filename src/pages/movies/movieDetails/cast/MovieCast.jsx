@@ -5,6 +5,7 @@ import Loader from 'components/common/loader/Loader';
 import Error from 'components/common/Error/Error';
 import styles from './MovieCast.module.css';
 import getMovieCredits from 'services/movieCredits';
+import PropTypes from 'prop-types';
 
 const MovieCast = () => {
   const [cast, setCast] = useState([]);
@@ -19,10 +20,8 @@ const MovieCast = () => {
         const response = await getMovieCredits(id);
         setCast(response.cast);
       } catch (error) {
-        console.error('Error fetching movie credits:', error);
-        setError(
-          'A apărut o eroare la preluarea detaliilor despre distribuție'
-        );
+        <Error message={error} />;
+        setError('An error occurred while retrieving cast details.');
       } finally {
         setIsLoading(false);
       }
@@ -41,7 +40,7 @@ const MovieCast = () => {
 
   return (
     <>
-      <div className={styles.flex}>
+      <div className={styles.gridContainer}>
         {cast.map(actor => (
           <div key={actor.id} className={styles.actorContainer}>
             <img
@@ -58,6 +57,10 @@ const MovieCast = () => {
       </div>
     </>
   );
+};
+
+MovieCast.propTypes = {
+  movieDetails: PropTypes.object.isRequired,
 };
 
 export default MovieCast;

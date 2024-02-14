@@ -1,3 +1,14 @@
+.searchContainer {
+  flex-direction: column;
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+}
+
+.searchResultsContainer {
+  margin-top: 10px; /* sau orice spațiere dorești între formular și rezultate */
+}
+
 .Header {
   display: flex;
   align-items: center;
@@ -85,4 +96,28 @@
 .SearchFormInput::placeholder {
   font: inherit;
   font-size: 18px;
+}
+
+.list {
+  list-style-type: none;
+}
+
+.navLink {
+  color: #0e0e0e;
+  font-size: 14px;
+  line-height: 24px;
+  letter-spacing: 1.25px;
+  font-weight: 700;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.navLink a:hover,
+.navLink a:focus {
+  text-decoration: underline;
+}
+
+.navLinkActive {
+  color: #258b25 !important;
 }

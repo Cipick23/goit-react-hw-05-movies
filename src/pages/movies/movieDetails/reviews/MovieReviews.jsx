@@ -5,6 +5,7 @@ import Loader from 'components/common/loader/Loader';
 import Error from 'components/common/Error/Error';
 import styles from './MovieReviews.module.css';
 import getMovieReviews from 'services/movieReviews';
+import PropTypes from 'prop-types';
 
 const MovieReviews = ({ movieDetails }) => {
   const [reviews, setReviews] = useState([]);
@@ -19,8 +20,8 @@ const MovieReviews = ({ movieDetails }) => {
         const response = await getMovieReviews(id);
         setReviews(response.results);
       } catch (error) {
-        console.error('Error fetching movie reviews:', error);
-        setError('A apărut o eroare la preluarea recenziilor filmului');
+        <Error message={error} />;
+        setError('An error occurred while retrieving movie reviews.');
       } finally {
         setIsLoading(false);
       }
@@ -54,6 +55,10 @@ const MovieReviews = ({ movieDetails }) => {
       )}
     </div>
   );
+};
+
+MovieReviews.propTypes = {
+  movieDetails: PropTypes.object,
 };
 
 export default MovieReviews;

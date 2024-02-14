@@ -1,72 +1,93 @@
-import React, { useEffect } from 'react';
-import fetchMovieDetails from 'services/apiDetails';
-import movieCredits from 'services/movieCredits';
-import movieReviews from 'services/movieReviews';
+// App.jsx
+import React, { lazy, Suspense } from 'react';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
-import Home from 'pages/home/Home';
-import SharedLayout from 'pages/SharedLayout';
-import NotFoundPage from 'pages/NotFoundPage';
-import MovieDetails from 'pages/movies/movieDetails/MovieDetails';
-import MoviesSearch from 'pages/movies/moviesSearch/MoviesSearch';
+
+// Folosim React.lazy() pentru a încărca leneș componente
+const Home = lazy(() => import('pages/home/Home'));
+const SharedLayout = lazy(() => import('pages/SharedLayout'));
+const NotFoundPage = lazy(() => import('pages/NotFoundPage'));
+const MovieDetails = lazy(() =>
+  import('pages/movies/movieDetails/MovieDetails')
+);
+const MoviesSearch = lazy(() =>
+  import('pages/movies/moviesSearch/MoviesSearch')
+);
 
 const App = () => {
-  useEffect(() => {
-    const id = 123; // Înlocuiește cu ID-ul real al filmului pe care vrei să-l obții
-    movieReviews(id)
-      .then(response => {
-        console.log('Lista filme revazute:', response);
-        // Aici poți face ceva cu detaliile filmului, cum ar fi actualizarea stării componentei
-      })
-      .catch(err => {
-        console.error(
-          `Eroare la preluarea filme revazute cu ID-ul ${id}:`,
-          err
-        );
-      });
-  }, []);
-
-  useEffect(() => {
-    const id = 123;
-    movieCredits(id)
-      .then(response => {
-        console.log('Creditele filmului:', response);
-        // Aici poți face ceva cu creditele filmului, cum ar fi actualizarea stării componentei
-      })
-      .catch(err => {
-        console.error(
-          `Eroare la preluarea creditelor filmului cu ID-ul ${id}:`,
-          err
-        );
-      });
-  }, []);
-
-  useEffect(() => {
-    const id = 342;
-    fetchMovieDetails(id)
-      .then(response => {
-        console.log('Despre film:', response);
-        // Aici poți face ceva cu detalile filmului, cum ar fi actualizarea stării componentei
-      })
-      .catch(err => {
-        console.error(
-          `Eroare la preluarea detalile filmului cu ID-ul ${id}:`,
-          err
-        );
-      });
-  }, []);
+  const handleMoviesSearchInputChange = input => {
+    console.log('Input in MoviesSearch:', input);
+  };
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<SharedLayout />}>
-          <Route index element={<Home />}></Route>
-          <Route path="movies" element={<MoviesSearch />} />
-          <Route path="movies/:id" element={<MovieDetails />}>
-            <Route index element={<MovieDetails />} />
-            <Route path="cast" element={<MovieDetails />} />
-            <Route path="reviews" element={<MovieDetails />} />
+        <Route
+          path="/"
+          element={
+            <Suspense fallback={<div>Loading...</div>}>
+              <SharedLayout />
+            </Suspense>
+          }
+        >
+          <Route
+            index
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <Home />
+              </Suspense>
+            }
+          ></Route>
+          <Route
+            path="movies"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <MoviesSearch
+                  handleInputChange={handleMoviesSearchInputChange}
+                />
+              </Suspense>
+            }
+          />
+          <Route
+            path="movies/:id"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <MovieDetails />
+              </Suspense>
+            }
+          >
+            <Route
+              index
+              element={
+                <Suspense fallback={<div>Loading...</div>}>
+                  <MovieDetails />
+                </Suspense>
+              }
+            />
+            <Route
+              path="cast"
+              element={
+                <Suspense fallback={<div>Loading...</div>}>
+                  <MovieDetails />
+                </Suspense>
+              }
+            />
+            <Route
+              path="reviews"
+              element={
+                <Suspense fallback={<div>Loading...</div>}>
+                  <MovieDetails />
+                </Suspense>
+              }
+            />
           </Route>
-          <Route path="*" element={<NotFoundPage />} />
+          <Route
+            path="*"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <NotFoundPage />
+              </Suspense>
+            }
+          />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -1,7 +1,10 @@
+import React from 'react';
+import Error from 'components/common/Error/Error';
+
 function NotFoundPage() {
   return (
     <div>
-      <span>Not Found...</span>
+      <Error message="404 - Page Not Found" />
     </div>
   );
 }
