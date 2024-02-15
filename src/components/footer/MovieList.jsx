@@ -1,3 +1,4 @@
+// MovieList.jsx
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './MovieList.module.css';

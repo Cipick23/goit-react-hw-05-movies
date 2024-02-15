@@ -1,4 +1,3 @@
-// MovieCast.jsx
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Loader from 'components/common/loader/Loader';
@@ -7,7 +6,7 @@ import styles from './MovieCast.module.css';
 import getMovieCredits from 'services/movieCredits';
 import PropTypes from 'prop-types';
 
-const MovieCast = () => {
+const MovieCast = ({ movieDetails }) => {
   const [cast, setCast] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
@@ -20,7 +19,6 @@ const MovieCast = () => {
         const response = await getMovieCredits(id);
         setCast(response.cast);
       } catch (error) {
-        <Error message={error} />;
         setError('An error occurred while retrieving cast details.');
       } finally {
         setIsLoading(false);
@@ -60,7 +58,7 @@ const MovieCast = () => {
 };
 
 MovieCast.propTypes = {
-  movieDetails: PropTypes.object.isRequired,
+  movieDetails: PropTypes.object, // Facem prop-ul opțional aici
 };
 
 export default MovieCast;

@@ -1,4 +1,3 @@
-// MovieReviews.jsx
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Loader from 'components/common/loader/Loader';
@@ -20,7 +19,6 @@ const MovieReviews = ({ movieDetails }) => {
         const response = await getMovieReviews(id);
         setReviews(response.results);
       } catch (error) {
-        <Error message={error} />;
         setError('An error occurred while retrieving movie reviews.');
       } finally {
         setIsLoading(false);
@@ -58,7 +56,7 @@ const MovieReviews = ({ movieDetails }) => {
 };
 
 MovieReviews.propTypes = {
-  movieDetails: PropTypes.object,
+  movieDetails: PropTypes.object.isRequired,
 };
 
 export default MovieReviews;

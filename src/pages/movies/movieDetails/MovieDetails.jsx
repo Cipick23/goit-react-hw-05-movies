@@ -1,5 +1,4 @@
-// MovieDetails.jsx
-import React, { useEffect, useState } from 'react';
+import React, { lazy, Suspense, useEffect, useState } from 'react';
 import {
   NavLink,
   useParams,
@@ -8,15 +7,17 @@ import {
   useLocation,
   // useNavigate,
 } from 'react-router-dom';
-import styles from './MovieDetails.module.css';
 import Loader from 'components/common/loader/Loader';
 import Error from 'components/common/Error/Error';
-import fetchMovieDetails from 'services/apiDetails';
-import MovieCast from './cast/MovieCast';
-import MovieReviews from './reviews/MovieReviews';
-import MoviesSearch from '../moviesSearch/MoviesSearch';
 import PropTypes from 'prop-types';
 import { BackLink } from 'components/common/backLink/BackLink';
+import fetchMovieDetails from 'services/apiDetails';
+import styles from './MovieDetails.module.css';
+
+// Folosește React.lazy() pentru a încărca dinamic componentele MovieCast și MovieReviews
+const MovieCast = lazy(() => import('./cast/MovieCast'));
+const MovieReviews = lazy(() => import('./reviews/MovieReviews'));
+const MoviesSearch = lazy(() => import('../moviesSearch/MoviesSearch'));
 
 const MovieDetails = () => {
   const [movieDetails, setMovieDetails] = useState({
@@ -45,7 +46,6 @@ const MovieDetails = () => {
         const response = await fetchMovieDetails(id);
         setMovieDetails(response);
       } catch (error) {
-        <Error message={error} />;
         setError('An error occurred while retrieving movie details.');
       } finally {
         setIsLoading(false);
@@ -73,7 +73,11 @@ const MovieDetails = () => {
     <>
       <BackLink to="/movies">Back</BackLink>
 
-      {isMoviesRoute && <MoviesSearch handleInputChange={handleInputChange} />}
+      {isMoviesRoute && (
+        <Suspense fallback={<Loader />}>
+          <MoviesSearch handleInputChange={handleInputChange} />
+        </Suspense>
+      )}
 
       <div className={styles.flex}>
         <div className={styles.imgContainer}>
@@ -103,11 +107,19 @@ const MovieDetails = () => {
         <Routes>
           <Route
             path="cast"
-            element={<MovieCast movieDetails={movieDetails} />}
+            element={
+              <Suspense fallback={<Loader />}>
+                <MovieCast />
+              </Suspense>
+            }
           />
           <Route
             path="reviews"
-            element={<MovieReviews movieDetails={movieDetails} />}
+            element={
+              <Suspense fallback={<Loader />}>
+                <MovieReviews movieDetails={movieDetails} />
+              </Suspense>
+            }
           />
         </Routes>
       </div>

@@ -1,3 +1,4 @@
+// Footer.jsx
 import React, { useEffect, useState, lazy, Suspense } from 'react';
 import styles from './Footer.module.css';
 import movieService from 'services/trendingMovies';
