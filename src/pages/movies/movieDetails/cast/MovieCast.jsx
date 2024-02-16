@@ -58,7 +58,7 @@ const MovieCast = ({ movieDetails }) => {
 };
 
 MovieCast.propTypes = {
-  movieDetails: PropTypes.object, // Facem prop-ul opțional aici
+  movieDetails: PropTypes.object,
 };
 
 export default MovieCast;

@@ -1,6 +1,7 @@
 // App.jsx
+import Loader from 'components/common/loader/Loader';
 import React, { lazy, Suspense } from 'react';
-import { Routes, Route, BrowserRouter } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 // Folosim React.lazy() pentru a încărca leneș componente
 const Home = lazy(() => import('pages/home/Home'));
@@ -19,78 +20,122 @@ const App = () => {
   };
 
   return (
-    <BrowserRouter>
-      <Routes>
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <Suspense
+            fallback={
+              <div>
+                <Loader />
+              </div>
+            }
+          >
+            <SharedLayout />
+          </Suspense>
+        }
+      >
         <Route
-          path="/"
+          index
           element={
-            <Suspense fallback={<div>Loading...</div>}>
-              <SharedLayout />
+            <Suspense
+              fallback={
+                <div>
+                  <Loader />
+                </div>
+              }
+            >
+              <Home />
+            </Suspense>
+          }
+        ></Route>
+        <Route
+          path="movies"
+          element={
+            <Suspense
+              fallback={
+                <div>
+                  <Loader />
+                </div>
+              }
+            >
+              <MoviesSearch handleInputChange={handleMoviesSearchInputChange} />
+            </Suspense>
+          }
+        />
+        <Route
+          path="movies/:id/*"
+          element={
+            <Suspense
+              fallback={
+                <div>
+                  <Loader />
+                </div>
+              }
+            >
+              <MovieDetails />
             </Suspense>
           }
         >
           <Route
             index
             element={
-              <Suspense fallback={<div>Loading...</div>}>
-                <Home />
-              </Suspense>
-            }
-          ></Route>
-          <Route
-            path="movies"
-            element={
-              <Suspense fallback={<div>Loading...</div>}>
-                <MoviesSearch
-                  handleInputChange={handleMoviesSearchInputChange}
-                />
+              <Suspense
+                fallback={
+                  <div>
+                    <Loader />
+                  </div>
+                }
+              >
+                <MovieDetails />
               </Suspense>
             }
           />
           <Route
-            path="movies/:id"
+            path="cast"
             element={
-              <Suspense fallback={<div>Loading...</div>}>
+              <Suspense
+                fallback={
+                  <div>
+                    <Loader />
+                  </div>
+                }
+              >
                 <MovieDetails />
               </Suspense>
             }
-          >
-            <Route
-              index
-              element={
-                <Suspense fallback={<div>Loading...</div>}>
-                  <MovieDetails />
-                </Suspense>
-              }
-            />
-            <Route
-              path="cast"
-              element={
-                <Suspense fallback={<div>Loading...</div>}>
-                  <MovieDetails />
-                </Suspense>
-              }
-            />
-            <Route
-              path="reviews"
-              element={
-                <Suspense fallback={<div>Loading...</div>}>
-                  <MovieDetails />
-                </Suspense>
-              }
-            />
-          </Route>
+          />
           <Route
-            path="*"
+            path="reviews"
             element={
-              <Suspense fallback={<div>Loading...</div>}>
-                <NotFoundPage />
+              <Suspense
+                fallback={
+                  <div>
+                    <Loader />
+                  </div>
+                }
+              >
+                <MovieDetails />
               </Suspense>
             }
           />
         </Route>
-      </Routes>
-    </BrowserRouter>
+        <Route
+          path="*"
+          element={
+            <Suspense
+              fallback={
+                <div>
+                  <Loader />
+                </div>
+              }
+            >
+              <NotFoundPage />
+            </Suspense>
+          }
+        />
+      </Route>
+    </Routes>
   );
 };
 

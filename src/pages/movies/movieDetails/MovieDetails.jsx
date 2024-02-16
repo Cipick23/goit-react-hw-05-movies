@@ -66,12 +66,12 @@ const MovieDetails = () => {
   const genresString = movieDetails.genres.map(genre => genre.name).join(', ');
 
   const isMoviesRoute =
-    location.pathname.includes('/movies') &&
-    !location.pathname.includes('/movies/');
+    location.pathname.includes('movies') &&
+    !location.pathname.includes('movies/');
 
   return (
     <>
-      <BackLink to="/movies">Back</BackLink>
+      <BackLink to={''}>Back</BackLink>
 
       {isMoviesRoute && (
         <Suspense fallback={<Loader />}>
@@ -109,7 +109,17 @@ const MovieDetails = () => {
             path="cast"
             element={
               <Suspense fallback={<Loader />}>
-                <MovieCast />
+                <NavLink
+                  key={id}
+                  to="/movies"
+                  className={({ isActive }) =>
+                    [styles.navLink, isActive ? styles.navLinkActive : ''].join(
+                      ' '
+                    )
+                  }
+                >
+                  <MovieCast />
+                </NavLink>
               </Suspense>
             }
           />
