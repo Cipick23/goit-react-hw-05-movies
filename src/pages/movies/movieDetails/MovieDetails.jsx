@@ -98,8 +98,22 @@ const MovieDetails = () => {
       </div>
 
       <div className={styles.flex}>
-        <NavLink to={`/movies/${id}/cast`}>Cast</NavLink>
-        <NavLink to={`/movies/${id}/reviews`}>Reviews</NavLink>
+        <NavLink
+          to={`/movies/${id}/cast`}
+          className={({ isActive }) =>
+            [styles.navLink, isActive ? styles.navLinkActive : ''].join(' ')
+          }
+        >
+          Cast
+        </NavLink>
+        <NavLink
+          to={`/movies/${id}/reviews`}
+          className={({ isActive }) =>
+            [styles.navLink, isActive ? styles.navLinkActive : ''].join(' ')
+          }
+        >
+          Reviews
+        </NavLink>
       </div>
 
       <div className={styles.additionalInformation}>
@@ -109,17 +123,7 @@ const MovieDetails = () => {
             path="cast"
             element={
               <Suspense fallback={<Loader />}>
-                <NavLink
-                  key={id}
-                  to="/movies"
-                  className={({ isActive }) =>
-                    [styles.navLink, isActive ? styles.navLinkActive : ''].join(
-                      ' '
-                    )
-                  }
-                >
-                  <MovieCast />
-                </NavLink>
+                <MovieCast />
               </Suspense>
             }
           />

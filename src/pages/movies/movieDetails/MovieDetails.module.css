@@ -25,6 +25,26 @@
   margin: 10px;
 }
 
+.navLink {
+  color: #258b25;
+  font-size: 14px;
+  line-height: 24px;
+  letter-spacing: 1.25px;
+  font-weight: 700;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.navLink a:hover,
+.navLink a:focus {
+  text-decoration: underline;
+}
+
+.navLinkActive {
+  color: #55ec8f !important;
+}
+
 @media screen and (min-width: 768px) {
   /* tablet */
   .flex {
