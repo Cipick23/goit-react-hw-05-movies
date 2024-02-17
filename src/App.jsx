@@ -24,13 +24,7 @@ const App = () => {
       <Route
         path="/"
         element={
-          <Suspense
-            fallback={
-              <div>
-                <Loader />
-              </div>
-            }
-          >
+          <Suspense fallback={<Loader />}>
             <SharedLayout />
           </Suspense>
         }
@@ -38,98 +32,38 @@ const App = () => {
         <Route
           index
           element={
-            <Suspense
-              fallback={
-                <div>
-                  <Loader />
-                </div>
-              }
-            >
+            <Suspense fallback={<Loader />}>
               <Home />
             </Suspense>
           }
-        ></Route>
+        />
+
         <Route
           path="movies"
           element={
-            <Suspense
-              fallback={
-                <div>
-                  <Loader />
-                </div>
-              }
-            >
+            <Suspense fallback={<Loader />}>
               <MoviesSearch handleInputChange={handleMoviesSearchInputChange} />
             </Suspense>
           }
         />
+
         <Route
           path="movies/:id/*"
           element={
-            <Suspense
-              fallback={
-                <div>
-                  <Loader />
-                </div>
-              }
-            >
+            <Suspense fallback={<Loader />}>
               <MovieDetails />
             </Suspense>
           }
         >
-          <Route
-            index
-            element={
-              <Suspense
-                fallback={
-                  <div>
-                    <Loader />
-                  </div>
-                }
-              >
-                <MovieDetails />
-              </Suspense>
-            }
-          />
-          <Route
-            path="cast"
-            element={
-              <Suspense
-                fallback={
-                  <div>
-                    <Loader />
-                  </div>
-                }
-              >
-                <MovieDetails />
-              </Suspense>
-            }
-          />
-          <Route
-            path="reviews"
-            element={
-              <Suspense
-                fallback={
-                  <div>
-                    <Loader />
-                  </div>
-                }
-              >
-                <MovieDetails />
-              </Suspense>
-            }
-          />
+          <Route index element={<MovieDetails />} />
+          <Route path="cast" element={<MovieDetails />} />
+          <Route path="reviews" element={<MovieDetails />} />
         </Route>
+
         <Route
           path="*"
           element={
-            <Suspense
-              fallback={
-                <div>
-                  <Loader />
-                </div>
-              }
-            >
+            <Suspense fallback={<Loader />}>
               <NotFoundPage />
             </Suspense>
           }

@@ -71,7 +71,7 @@ const MovieDetails = () => {
 
   return (
     <>
-      <BackLink to={''}>Back</BackLink>
+      <BackLink />
 
       {isMoviesRoute && (
         <Suspense fallback={<Loader />}>

@@ -1,4 +1,5 @@
 .link {
+  margin-top: 10px;
   display: inline-flex;
   align-items: center;
   gap: 4px;
@@ -8,6 +9,11 @@
   font-weight: 500;
   text-transform: uppercase;
   margin-left: 10px;
+  border-radius: 10px;
+  /* border: 1px solid #2cbb7f; */
+  border: none;
+  padding: 2px;
+  background-color: transparent;
 }
 
 .link:hover {
