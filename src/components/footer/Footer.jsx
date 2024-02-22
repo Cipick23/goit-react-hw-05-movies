@@ -6,7 +6,6 @@ import ErrorAlert from 'components/common/ErrorAlert/ErrorAlert';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 
-// Folosește React.lazy() pentru a încărca dinamic componenta MovieList
 const MovieList = lazy(() => import('./MovieList'));
 
 const Footer = ({ inputValue, onClick }) => {
@@ -39,7 +38,6 @@ const Footer = ({ inputValue, onClick }) => {
       <h2 className={styles.title}>Trending Movies</h2>
       {error && error?.length > 0 && <ErrorAlert errors={error} />}
 
-      {/* Utilizează Suspense pentru a încărca MovieList în mod dinamic */}
       <Suspense fallback={<p>Loading...</p>}>
         {results.length > 0 ? <MovieList results={results} /> : null}
       </Suspense>

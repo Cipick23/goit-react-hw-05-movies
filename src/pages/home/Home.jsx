@@ -1,14 +1,19 @@
 import React, { lazy, Suspense } from 'react';
 import PropTypes from 'prop-types';
+import Loader from 'components/common/loader/Loader';
 
-// Folosește React.lazy() pentru a încărca dinamic componenta Footer
 const Footer = lazy(() => import('components/footer/Footer'));
 
 function Home() {
   return (
     <>
-      {/* Utilizează Suspense pentru a încărca Footer în mod dinamic */}
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense
+        fallback={
+          <div>
+            <Loader />
+          </div>
+        }
+      >
         <Footer />
       </Suspense>
     </>

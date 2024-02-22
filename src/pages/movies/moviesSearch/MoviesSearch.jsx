@@ -1,14 +1,14 @@
+// MoviesSearch.jsx
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './MoviesSearch.module.css';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-import Error from 'components/common/Error/Error';
+import { useSearch } from 'components/common/searchContext/SearchContext';
 
 const MoviesSearch = ({ handleInputChange }) => {
+  const { searchResults, searchError, updateSearchResults } = useSearch();
   const [input, setInput] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
-  const [searchError, setSearchError] = useState('');
 
   const onSubmit = async ev => {
     ev.preventDefault();
@@ -31,24 +31,20 @@ const MoviesSearch = ({ handleInputChange }) => {
           },
           headers: {
             accept: 'application/json',
-            Authorization:
-              'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4YzFjMWQ0MjljYzEzYmFhOTQ5OTI1N2VlMzJiNDU0YSIsInN1YiI6IjY1YzM0NzFlOTVhY2YwMDE4MzFjYzFhMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.JLn5JCCJxeGxonVwpy_8IiREG1kTSzIQforDO2lzJwI',
+            Authorization: 'Bearer your-api-key',
           },
         }
       );
 
       if (response.data.results.length === 0) {
-        setSearchResults([]);
-        setSearchError('No results found for the given search term.');
+        updateSearchResults([], 'No results found for the given search term.');
       } else {
-        setSearchResults(response.data.results);
-        setSearchError('');
+        updateSearchResults(response.data.results, '');
       }
     } catch (error) {
-      <Error message={error} />;
-      setSearchResults([]);
-      setSearchError(
-        'An error occurred while fetching search results from API:'
+      updateSearchResults(
+        [],
+        'An error occurred while fetching search results from API.'
       );
     }
 

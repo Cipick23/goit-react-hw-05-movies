@@ -3,7 +3,6 @@ import Loader from 'components/common/loader/Loader';
 import React, { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
-// Folosim React.lazy() pentru a încărca leneș componente
 const Home = lazy(() => import('pages/home/Home'));
 const SharedLayout = lazy(() => import('pages/SharedLayout'));
 const NotFoundPage = lazy(() => import('pages/NotFoundPage'));

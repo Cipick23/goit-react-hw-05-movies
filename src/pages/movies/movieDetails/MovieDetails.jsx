@@ -5,7 +5,6 @@ import {
   Route,
   Routes,
   useLocation,
-  // useNavigate,
 } from 'react-router-dom';
 import Loader from 'components/common/loader/Loader';
 import Error from 'components/common/Error/Error';
@@ -14,7 +13,6 @@ import { BackLink } from 'components/common/backLink/BackLink';
 import fetchMovieDetails from 'services/apiDetails';
 import styles from './MovieDetails.module.css';
 
-// Folosește React.lazy() pentru a încărca dinamic componentele MovieCast și MovieReviews
 const MovieCast = lazy(() => import('./cast/MovieCast'));
 const MovieReviews = lazy(() => import('./reviews/MovieReviews'));
 const MoviesSearch = lazy(() => import('../moviesSearch/MoviesSearch'));
@@ -32,7 +30,6 @@ const MovieDetails = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const { id } = useParams();
-  // const navigate = useNavigate();
   const location = useLocation();
 
   const handleInputChange = inputValue => {
@@ -68,6 +65,9 @@ const MovieDetails = () => {
   const isMoviesRoute =
     location.pathname.includes('movies') &&
     !location.pathname.includes('movies/');
+
+  // const locationButton = useLocation();
+  // const backLinkHref = useRef(location.state?.from || '/');
 
   return (
     <>
